@@ -1,10 +1,10 @@
 package com.example.demo.advice;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Path;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,4 +17,5 @@ public class ApplicationExceptionHandler {
         ex.getConstraintViolations().forEach(fieldError -> errorMap.put(fieldError.getPropertyPath(), fieldError.getMessage()));
         return errorMap;
     }
+
 }

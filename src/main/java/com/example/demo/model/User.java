@@ -1,13 +1,11 @@
 package com.example.demo.model;
 
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +31,5 @@ public class User {
     private int age;
     @NotBlank
     private String nationality;
-
 
 }

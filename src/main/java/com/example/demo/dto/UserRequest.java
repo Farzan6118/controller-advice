@@ -1,17 +1,18 @@
 package com.example.demo.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class UserRequest {
-    private int id;
     private String name;
     private String email;
     private String mobile;
     private String gender;
-    private int age;
+    private Integer age;
     private String nationality;
 
 }

@@ -3,20 +3,22 @@ package com.example.demo.controller;
 import com.example.demo.dto.UserRequest;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<User> saveUser(@RequestBody @Valid UserRequest userRequest) {
@@ -24,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/fetchAll")
-    public ResponseEntity<List<User>> getAllUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<List<User>> getAllUser() {
         return ResponseEntity.ok(userService.getAllUser());
     }
 
@@ -32,6 +34,5 @@ public class UserController {
     public ResponseEntity<User> getAllUser(@PathVariable int id) {
         return ResponseEntity.ok(userService.getUser(id));
     }
-
 
 }

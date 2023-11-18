@@ -16,19 +16,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User saveUser(UserRequest userRequest){
-        User user = User.build(0, userRequest.getName(), userRequest.getEmail(), userRequest.getMobile(),userRequest.getGender(),userRequest.getAge(),userRequest.getNationality());
+    public User saveUser(UserRequest userRequest) {
+        User user = User.build(0, userRequest.getName(), userRequest.getEmail(), userRequest.getMobile(), userRequest.getGender(), userRequest.getAge(), userRequest.getNationality());
         return userRepository.save(user);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
-    public User getUser(int id){
+    public User getUser(int id) {
         return userRepository.findUserById(id);
     }
-
-
 
 }
