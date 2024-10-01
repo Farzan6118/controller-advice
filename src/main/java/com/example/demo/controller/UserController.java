@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.UserRequest;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> saveUser(@RequestBody @Valid UserRequest userRequest) {
+    public ResponseEntity<User> saveUser(@RequestBody UserRequest userRequest) {
         return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
     }
 

@@ -12,9 +12,10 @@ import java.util.Map;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public Map<Path, String> handleInvalidArgument(ConstraintViolationException ex) {
+    public Map<Path, String> handleInvalidArgument(ConstraintViolationException exception) {
         Map<Path, String> errorMap = new HashMap<>();
-        ex.getConstraintViolations().forEach(fieldError -> errorMap.put(fieldError.getPropertyPath(), fieldError.getMessage()));
+        exception.getConstraintViolations()
+                .forEach(fieldError -> errorMap.put(fieldError.getPropertyPath(), fieldError.getMessage()));
         return errorMap;
     }
 
