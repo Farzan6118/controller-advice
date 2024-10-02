@@ -4,23 +4,21 @@ import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 public class UserRequest {
-    @NotNull(message = "username should not be null")
+    @NotBlank(message = "DTO VALIDATION: username should not be blank")
     private String name;
-    @Email(message = "enter a valid email")
+    @NotBlank(message = "DTO VALIDATION: email should not be blank")
     private String email;
-    @NotNull
-    @Pattern(regexp = "^\\d{10}$", message = "invalid mobile number entered")
+    @NotBlank(message = "DTO VALIDATION: mobile should not be blank")
     private String mobile;
     private String gender;
-    @Min(18)
-    @Max(60)
     private Integer age;
-    @Size(min = 10, max = 10, message = "the size should be exactly 10")
+    @NotBlank(message = "DTO VALIDATION: nationality should not be blank")
     private String nationality;
 
 }

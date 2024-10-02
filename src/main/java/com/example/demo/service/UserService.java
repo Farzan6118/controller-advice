@@ -16,6 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public User saveUser(UserRequest userRequest) {
         User user = User.build(0, userRequest.getName(), userRequest.getEmail(), userRequest.getMobile(), userRequest.getGender(), userRequest.getAge(), userRequest.getNationality());
         return userRepository.save(user);
