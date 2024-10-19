@@ -4,6 +4,7 @@ import com.example.demo.dto.UserRequest;
 import com.example.demo.model.User;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,7 +37,7 @@ public class UserControllerIntegrationTest {
         return headers;
     }
 
-    @Test
+    @BeforeEach
     public void testSaveUser() {
         // Create UserRequest object
         UserRequest userRequest = new UserRequest();
@@ -66,7 +70,9 @@ public class UserControllerIntegrationTest {
         );
 
         // Parse response body
-        List<User> users = gson.fromJson(response.getBody(), List.class);
+
+        Type listType = new TypeToken<ArrayList<User>>(){}.getType();
+        List<User> users = gson.fromJson(response.getBody(), listType);
 
         // Assertions
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
