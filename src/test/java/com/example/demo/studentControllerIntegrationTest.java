@@ -1,8 +1,9 @@
 package com.example.demo;
 
-import com.example.demo.dto.UserRequest;
-import com.example.demo.model.User;
+import com.example.demo.dto.studentRequestDto;
+import com.example.demo.model.Student;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,22 +15,19 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import java.lang.reflect.Type;
-import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerIntegrationTest {
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    @LocalServerPort
-    private String serverPort;
+public class studentControllerIntegrationTest {
 
     private final Gson gson = new Gson();
+    @Autowired
+    private TestRestTemplate restTemplate;
+    @LocalServerPort
+    private String serverPort;
 
     private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
@@ -40,16 +38,16 @@ public class UserControllerIntegrationTest {
     @BeforeEach
     public void testSaveUser() {
         // Create UserRequest object
-        UserRequest userRequest = new UserRequest();
-        userRequest.setName("John Doe");
-        userRequest.setEmail("johndoe@example.com");
-        userRequest.setMobile("1234567890");
-        userRequest.setGender("Male");
-        userRequest.setAge(30);
-        userRequest.setNationality("American");
+        studentRequestDto studentRequestDto = new studentRequestDto();
+        studentRequestDto.setName("John Doe");
+        studentRequestDto.setEmail("johndoe@example.com");
+        studentRequestDto.setMobile("1234567890");
+        studentRequestDto.setGender("Male");
+        studentRequestDto.setAge(30);
+        studentRequestDto.setNationality("American");
 
         // Send request
-        HttpEntity<UserRequest> entity = new HttpEntity<>(userRequest, createHeaders());
+        HttpEntity<studentRequestDto> entity = new HttpEntity<>(studentRequestDto, createHeaders());
         ResponseEntity<String> response = restTemplate.postForEntity(
                 String.format("http://localhost:%s/api/v1/signup", serverPort),
                 entity,
@@ -71,13 +69,14 @@ public class UserControllerIntegrationTest {
 
         // Parse response body
 
-        Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-        List<User> users = gson.fromJson(response.getBody(), listType);
+        Type listType = new TypeToken<ArrayList<Student>>() {
+        }.getType();
+        List<Student> students = gson.fromJson(response.getBody(), listType);
 
         // Assertions
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(users);
-        Assertions.assertFalse(users.isEmpty());
+        Assertions.assertNotNull(students);
+        Assertions.assertFalse(students.isEmpty());
     }
 
     @Test
@@ -90,11 +89,11 @@ public class UserControllerIntegrationTest {
         );
 
         // Parse response body
-        User user = gson.fromJson(response.getBody(), User.class);
+        Student student = gson.fromJson(response.getBody(), Student.class);
 
         // Assertions
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(user);
-        Assertions.assertEquals(1, user.getId());
+        Assertions.assertNotNull(student);
+        Assertions.assertEquals(1, student.getId());
     }
 }

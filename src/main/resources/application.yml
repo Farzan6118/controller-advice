@@ -1,8 +1,34 @@
 server:
   port: 8081
+
 spring:
-  h2:
-    console:
-      enabled: true
+  application:
+    name: specification
+
   datasource:
-    url: jdbc:h2:mem:test_db
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/student_db
+    username: user
+    password: pass
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: update          # ساخت و آپدیت تیبل‌ها خودکار
+    show-sql: true              # نمایش SQL در console
+    properties:
+      hibernate:
+        format_sql: true        # فرمت مرتب SQL
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    default-models-expand-depth: -1
+
+debug: true
