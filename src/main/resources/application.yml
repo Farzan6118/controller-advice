@@ -30,5 +30,3 @@ springdoc:
     path: /swagger-ui.html
     enabled: true
     default-models-expand-depth: -1
-
-debug: true
