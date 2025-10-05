@@ -16,6 +16,7 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/api/v1/student/**",
+            "/api/v1/employee/**",
             "/swagger/oauth2-redirect.html"
     };
 
